@@ -78,7 +78,7 @@ return string;
 - (NSString *)md5HashToUpper16Length {
 NSString *md5Str = [self md5HashToUpper32Length];
 
-NSString *string;
+NSString *string = @"";
 if (md5Str.length == 32) {
 string=[md5Str substringWithRange:NSMakeRange(8, 16)];
 }
