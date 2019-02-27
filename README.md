@@ -2,6 +2,7 @@
 
 ### 简介
 >  **MD5加密是最常用的不可逆加密方法之一，是将字符串通过相应特征生成一段32位的数字字母混合码。对输入信息生成唯一的128位散列值（32个16进制的数字)**
+> 但是常见的会有16位和32位长度之分, 实际上MD5产生的就是唯一的32位的长度, 所谓的16位的长度可以理解为对MD5的再加工而形成的. 再加工就是: 32 位字符串中，取中间的第 9 位到第 24 位的部分;
 
 ### 加密约定
 - 加密结果位数:   **加密结果位数是16位还是32位(大多数都是32位的)。**
@@ -9,20 +10,28 @@
 
 ### 声明和实现: (NSString的类别)
 ```objectivec
-// 32位 (较为常用)
-- (NSString *)md5HashToLower32Bit;
-- (NSString *)md5HashToUpper32Bit;
 
-// 16位
-- (NSString *)md5HashToLower16Bit;
-- (NSString *)md5HashToUpper16Bit;
+@interface NSString (MD5Hash)
+
+// 32位长度 (较为常用)
+- (NSString *)md5HashToLower32Length;
+- (NSString *)md5HashToUpper32Length;
+
+// 16位长度
+- (NSString *)md5HashToLower16Length;
+- (NSString *)md5HashToUpper16Length;
+
+@end
 
 ```
 
 ```objectivec
-#pragma mark - 32位 小写
 
-- (NSString *)md5HashToLower32Bit {
+@implementation NSString (MD5Hash)
+
+#pragma mark - 32位长度 小写
+
+- (NSString *)md5HashToLower32Length {
 const char *input = [self UTF8String];
 unsigned char result[CC_MD5_DIGEST_LENGTH];
 CC_MD5(input, (CC_LONG)strlen(input), result);
@@ -35,9 +44,9 @@ for (NSInteger i = 0; i < CC_MD5_DIGEST_LENGTH; i++) {
 return digest;
 }
 
-#pragma mark - 32位 大写
+#pragma mark - 32位长度 大写
 
-- (NSString *)md5HashToUpper32Bit {
+- (NSString *)md5HashToUpper32Length {
 const char *input = [self UTF8String];
 unsigned char result[CC_MD5_DIGEST_LENGTH];
 CC_MD5(input, (CC_LONG)strlen(input), result);
@@ -50,30 +59,34 @@ for (NSInteger i = 0; i < CC_MD5_DIGEST_LENGTH; i++) {
 return digest;
 }
 
-#pragma mark - 16位 小写
+#pragma mark - 16位长度 小写
 
-- (NSString *)md5HashToLower16Bit {
-NSString *md5Str = [self md5HashToLower32Bit];
+- (NSString *)md5HashToLower16Length {
+NSString *md5Str = [self md5HashToLower32Length];
+
+NSString *string = @"";
+if (md5Str.length == 32) {
+string = [md5Str substringWithRange:NSMakeRange(8, 16)];;
+}
+
+return string;
+}
+
+#pragma mark - 16位长度 大写
+
+- (NSString *)md5HashToUpper16Length {
+NSString *md5Str = [self md5HashToUpper32Length];
 
 NSString *string;
-for (int i=0; i<24; i++) {
+if (md5Str.length == 32) {
 string=[md5Str substringWithRange:NSMakeRange(8, 16)];
 }
 
 return string;
 }
 
-#pragma mark - 16位 大写
+@end
 
-- (NSString *)md5HashToUpper16Bit {
-NSString *md5Str = [self md5HashToUpper32Bit];
-
-NSString *string;
-for (int i=0; i<24; i++) {
-string=[md5Str substringWithRange:NSMakeRange(8, 16)];
-}
-
-return string;
 }
 ```
 >   **加盐: 即就是添加"佐料", 如果用户密码数据库不小心被泄露, 黑客就可以通过反查询方式获得用户密码或者对于数据库中出现频率较高的hash码(即很多人使用的)进行暴力破解(因为它通常都是弱口令)**

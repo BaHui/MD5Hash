@@ -10,12 +10,12 @@
 
 @interface NSString (MD5Hash)
 
-// 32位 (较为常用)
-- (NSString *)md5HashToLower32Bit;
-- (NSString *)md5HashToUpper32Bit;
+// 32位长度 (较为常用)
+- (NSString *)md5HashToLower32Length;
+- (NSString *)md5HashToUpper32Length;
 
-// 16位
-- (NSString *)md5HashToLower16Bit;
-- (NSString *)md5HashToUpper16Bit;
+// 16位长度
+- (NSString *)md5HashToLower16Length;
+- (NSString *)md5HashToUpper16Length;
 
 @end

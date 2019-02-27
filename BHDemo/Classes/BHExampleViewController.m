@@ -28,14 +28,14 @@ static NSString *const DEMO_VIEWS_STORYBOARD_NAME = @"DemoViews";
   [super viewDidLoad];
 
 	// 32位 Hash
-	NSString *hashResult32BitLower = [@"abc" md5HashToLower32Bit]; // 结果: 900150983cd24fb0d6963f7d28e17f72
-	NSString *hashResult32BitUpper = [@"abc" md5HashToUpper32Bit]; // 结果: 900150983CD24FB0D6963F7D28E17F72
-	NSLog(@"hashResult32BitLower: %@; hashResult32BitUpper: %@", hashResult32BitLower, hashResult32BitUpper);
+	NSString *lower32Length = [@"abc" md5HashToLower32Length]; // 结果: 900150983cd24fb0d6963f7d28e17f72
+	NSString *upper32Length = [@"abc" md5HashToUpper32Length]; // 结果: 900150983CD24FB0D6963F7D28E17F72
+	NSLog(@"\nhashResult32BitLower: %@;\nhashResult32BitUpper: %@", lower32Length, upper32Length);
 
 	// 16位 Hash
-	NSString *hashResult16BitLower = [@"abc" md5HashToLower16Bit]; // 结果: 3cd24fb0d6963f7d
-	NSString *hashResult16BitUpper = [@"abc" md5HashToUpper16Bit]; // 结果: 3CD24FB0D6963F7D
-	NSLog(@"hashResult16BitLower: %@; hashResult16BitUpper: %@", hashResult16BitLower, hashResult16BitUpper);
+	NSString *lower16Length = [@"abc" md5HashToLower16Length]; // 结果: 3cd24fb0d6963f7d
+	NSString *upper16Length = [@"abc" md5HashToUpper16Length]; // 结果: 3CD24FB0D6963F7D
+	NSLog(@"\nhashResult16BitLower: %@;\nhashResult16BitUpper: %@", lower16Length, upper16Length);
 }
 
 @end
