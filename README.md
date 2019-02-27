@@ -10,7 +10,7 @@
 - 加密结果大小写:   **MD5加密区分 大小写，使用时要和后台约定好。**
 
 ### 声明和实现: (NSString的类别)
-```objectivec
+```Objective-C
 
 @interface NSString (MD5Hash)
 
@@ -26,7 +26,7 @@
 
 ```
 
-```objectivec
+```Objective-C
 
 @implementation NSString (MD5Hash)
 
